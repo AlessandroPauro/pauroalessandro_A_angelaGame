@@ -1,10 +1,10 @@
-void setup() {
-  // put your setup code here, to run once:
   int Giocatore = 0;
   int PunteggioTOT = 0;
   int Meta = 30;  
   int Giocate[] = {1, 2, 3, 4, 5, 6};
   int Giocata = 1;
+void setup() {
+  // put your setup code here, to run once
 }
   void AumentaMeta()
 {
@@ -22,13 +22,13 @@ void ValoreSelezionabile()
   switch (Giocata)
   {
     case 1 || 6: 
-    Giocate [] = {2, 3, 4, 5};
+    Giocate [6] = {2, 3, 4, 5};
 
     case 2 || 5:
-    Giocate [] = {1, 3, 4, 6};
+    Giocate [6] = {1, 3, 4, 6};
     
     case 3 || 4:
-    Giocate [] = {1, 2, 5, 6};   
+    Giocate [6] = {1, 2, 5, 6};   
   } 
   }
 
