@@ -32,19 +32,19 @@ void loop() {
    void  ValoreSelezionabile(){
    Giocata = Serial.parseInt();   
    switch (Giocata){
-       case 0: Caso00;  break;
-       case 1: Caso16;  break;
-       case 2: Caso25;  break;
-       case 3: Caso34;  break;
-       case 4: Caso34;  break;
-       case 5: Caso25;  break;
-       case 6: Caso16;  break;
+       case 0: Caso00;  for(int i=0; i<= 6 ; i++){if (Giocata != Caso00 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
+       case 1: Caso16;  for(int i=0; i<= 5 ; i++){if (Giocata != Caso16 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
+       case 2: Caso25;  for(int i=0; i<= 6 ; i++){if (Giocata != Caso25 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
+       case 3: Caso34;  for(int i=0; i<= 6 ; i++){if (Giocata != Caso34 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
+       case 4: Caso34;  for(int i=0; i<= 6 ; i++){if (Giocata != Caso34 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
+       case 5: Caso25;  for(int i=0; i<= 6 ; i++){if (Giocata != Caso25 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
+       case 6: Caso16;  for(int i=0; i<= 5 ; i++){if (Giocata != Caso16 [i]){Serial.print("Giocata non valida");}else{Serial.print(Giocata), Giocatore++;}}break;
     }
 }
-
+  void 
 
 void FinePartita()
 {
-  if (PunteggioTOT == Meta){Serial.print("Ha vinto il giocatore " + Giocatore)}
-  else if (PunteggioTOT > Meta){Serial.print("Ha perso il giocatore " + Giocatore)}
+  if (PunteggioTOT == Meta){Serial.print("Ha vinto il giocatore " + if();}
+  else if (PunteggioTOT > Meta){Serial.print("Ha perso il giocatore " + Giocatore);}
 }
