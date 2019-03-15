@@ -43,39 +43,36 @@ void Giocata0(){
       if (Giocata == Caso00 [i]) {Serial.println(Giocata);
       PunteggioTOT = PunteggioTOT + Giocata; 
          backup = Giocata;
-         Serial.println(PunteggioTOT);
+         Serial.println("Punteggio: ") + PunteggioTOT;
       }
       }
     }
     
-  void Giocata17(){
-
+     void Giocata17(){
     for (int i = 0; i <= 6 ; i++) {
       if (Giocata == Caso17 [i]) {
         Serial.println(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata; 
-        Serial.println(PunteggioTOT);
+        Serial.println("Punteggio: ") + PunteggioTOT;
       }
     }
   }
 
 void Giocata1(){
-
     for (int i = 0; i <= 4 ; i++) {
       if (Giocata != Caso16 [i]) {
         Serial.println("Giocata non valida");
       } else {
-        Serial.println(Giocata);
+        Serial.print(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata; 
-        Serial.println(PunteggioTOT);
+        Serial.println("Punteggio: ") + PunteggioTOT;
       }
     }
   }
 
 void Giocata2(){
-
     for (int i = 0; i < 4 ; i++) {
       if (Giocata != Caso25 [i]) {
         Serial.println("Giocata non valida");
@@ -83,7 +80,7 @@ void Giocata2(){
         Serial.println(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata;
-        Serial.println(PunteggioTOT);
+        Serial.println("Punteggio: ") + PunteggioTOT;  
       }
     }
   }
@@ -95,7 +92,7 @@ void Giocata3(){
         Serial.println(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata;
-        Serial.println(PunteggioTOT);
+        Serial.println("Punteggio: ") + PunteggioTOT;
       }
     }
   }
