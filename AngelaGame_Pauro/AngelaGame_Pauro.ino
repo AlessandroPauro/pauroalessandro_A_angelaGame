@@ -1,5 +1,9 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
 int Giocatore = 0;
 int PunteggioTOT = 0;
+int MetaIn = 30;
 int Stato = 1;
 int backup = 0;
 int Meta;
@@ -10,40 +14,56 @@ int Caso16 [4] = {2, 3, 4, 5};
 int Caso25 [4] = {1, 3, 4, 6};
 int Caso34 [4] = {1, 2, 5, 6};
 
+const int buttonPin1 = 7;
+const int buttonPin2 = 8;
+const int buttonPin3 = 9;
 
+   
 void setup() {
   Serial.begin(9600);
+  lcd.begin(16, 2);
+   pinMode(buttonPin1, INPUT_PULLUP);
+   pinMode(buttonPin2, INPUT_PULLUP);
+   pinMode(buttonPin3, INPUT_PULLUP);
 }
+
 
 
 void MetaSelezionabile()
-{ if (Meta == 0) {
-    Serial.println("Inserisci valore tra 30 e 99");
-    while (Serial.available() == 0) {}
-    Meta = Serial.parseInt();
-    if (Meta > 99) {
-      Serial.println("Meta non disponibile, MetaMAX 99");
-      Meta = 0;
+{   
+    if (Stato == 1) 
+    {
+    lcd.print("Inserisci valore");
+    lcd.setCursor(2,1);
+    lcd.print("tra 30 e 99");
+    delay(3000);
+    lcd.clear();
+    lcd.print(MetaIn);}
+    delay(3000);
+    lcd.clear();
+    Serial.println("rumori strani1");
+    while(buttonPin1 == HIGH&&buttonPin2 == HIGH&&buttonPin3 == HIGH){Serial.println("rumori strani");}
+    if(buttonPin1 == LOW){MetaIn++;lcd.print(MetaIn);}
+    if(buttonPin3 == LOW){MetaIn--;lcd.print(MetaIn);}
+    if(buttonPin2 == LOW){ContolloMeta();
+    MetaIn=Meta;
+    Stato=2;
     }
-
-    else if (Meta < 30 ) {
-      while (Serial.available() == 0) {}
-      Serial.println("Meta non disponibile, MetaMIN 30");
-      Meta = 0;
-    }
-
-    if (Meta > 30 && Meta < 99) {
-      Stato = 2;
-    }
-  }
 }
+    
+void ContolloMeta(){    
+  if(MetaIn < 30){lcd.print("Valore troppo basso");MetaIn = 30;}
+  else{if(MetaIn>99){lcd.print("Valore troppo alto");MetaIn = 99;}}} 
+
+
+
 
 void Giocata0(){
     for (int i = 0; i < 7 ; i++) {
-      if (Giocata == Caso00 [i]) {Serial.println(Giocata);
+      if (Giocata == Caso00 [i]) {lcd.print(Giocata);
       PunteggioTOT = PunteggioTOT + Giocata; 
          backup = Giocata;
-         Serial.println("Punteggio: ") + PunteggioTOT;
+        lcd.print("Punteggio: "+ PunteggioTOT);
       }
       }
     }
@@ -51,10 +71,10 @@ void Giocata0(){
      void Giocata17(){
     for (int i = 0; i <= 6 ; i++) {
       if (Giocata == Caso17 [i]) {
-        Serial.println(Giocata);
+       lcd.print(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata; 
-        Serial.println("Punteggio: ") + PunteggioTOT;
+        lcd.print("Punteggio: ") + PunteggioTOT;
       }
     }
   }
@@ -62,12 +82,12 @@ void Giocata0(){
 void Giocata1(){
     for (int i = 0; i <= 4 ; i++) {
       if (Giocata != Caso16 [i]) {
-        Serial.println("Giocata non valida");
+        lcd.print("Giocata non valida");
       } else {
-        Serial.print(Giocata);
+       lcd.print(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata; 
-        Serial.println("Punteggio: ") + PunteggioTOT;
+       lcd.print("Punteggio: ") + PunteggioTOT;
       }
     }
   }
@@ -75,24 +95,24 @@ void Giocata1(){
 void Giocata2(){
     for (int i = 0; i < 4 ; i++) {
       if (Giocata != Caso25 [i]) {
-        Serial.println("Giocata non valida");
+        lcd.print("Giocata non valida");
       } else {
-        Serial.println(Giocata);
+        lcd.print(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata;
-        Serial.println("Punteggio: ") + PunteggioTOT;  
+        lcd.print("Punteggio: ") + PunteggioTOT;  
       }
     }
   }
 void Giocata3(){
     for (int i = 0; i < 4 ; i++) {
       if (Giocata != Caso34 [i]) {
-        Serial.println("Giocata non valida");
+        lcd.print("Giocata non valida");
       } else {
-        Serial.println(Giocata);
+        lcd.print(Giocata);
         backup = Giocata;
         PunteggioTOT = PunteggioTOT + Giocata;
-        Serial.println("Punteggio: ") + PunteggioTOT;
+        lcd.print("Punteggio: ") + PunteggioTOT;
       }
     }
   }
@@ -115,13 +135,10 @@ void ValoreSelezionabile(){
 
 void Gioco() {
   if(Giocatore == 0){
-  Serial.println("Seleziona un numero da 0 a 6"); 
-  while (Serial.available() == 0) {}
-  Giocata = Serial.parseInt(); Giocata0();Giocatore = 1;}
-  else if (Giocatore > 0){Serial.println("Seleziona un numero da 1 a 6");
-  while(Serial.available() == 0) {}
-  Giocata = Serial.parseInt();
-  Serial.println(Giocata);
+  lcd.print("Seleziona un numero da 0 a 6"); 
+  Giocata0();Giocatore = 1;}
+  else if (Giocatore > 0){lcd.print("Seleziona un numero da 1 a 6");
+  lcd.print(Giocata);
   ValoreSelezionabile();Giocatore++;}
 } 
   
@@ -131,11 +148,11 @@ void FinePartita()
 {
   if (PunteggioTOT == Meta) {
     if(Giocatore % 2 == 0){
-    Serial.println("Ha vinto il giocatore Giocatore1");} else {Serial.print("Ha vinto il giocatore2");}
+    lcd.print("Ha vinto il giocatore Giocatore1");} else {lcd.print("Ha vinto il giocatore2");}
   }
   if (PunteggioTOT > Meta) {
     if(Giocatore % 2 == 0){
-    Serial.println("Ha perso il giocatore Giocatore1");} else {Serial.print("Ha perso il giocatore2");}
+    lcd.print("Ha perso il giocatore Giocatore1");} else {lcd.print("Ha perso il giocatore2");}
   }
   Stato = 1;
 }
