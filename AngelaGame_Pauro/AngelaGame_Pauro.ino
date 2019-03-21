@@ -3,58 +3,65 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 int Giocatore = 0;
 int PunteggioTOT = 0;
-int MetaIn = 30;
+
 int Stato = 1;
 int backup = 0;
 int Meta;
+int MetaIn = 30;
 int Giocata;
 int Caso00 [7] = {0, 1, 2, 3, 4, 5, 6};
 int Caso17 [6] = {1, 2, 3, 4, 5, 6};
 int Caso16 [4] = {2, 3, 4, 5};
 int Caso25 [4] = {1, 3, 4, 6};
 int Caso34 [4] = {1, 2, 5, 6};
-
+/*
 const int buttonPin1 = 7;
 const int buttonPin2 = 8;
-const int buttonPin3 = 9;
+const int buttonPin3 = 9;*/
 
    
 void setup() {
-  Serial.begin(9600);
   lcd.begin(16, 2);
-   pinMode(buttonPin1, INPUT_PULLUP);
-   pinMode(buttonPin2, INPUT_PULLUP);
-   pinMode(buttonPin3, INPUT_PULLUP);
+  Serial.begin(9600);
+   pinMode(22, INPUT_PULLUP);
+   pinMode(24, INPUT_PULLUP);
+   pinMode(26, INPUT_PULLUP);
 }
 
 
 
 void MetaSelezionabile()
 {   
-    if (Stato == 1) 
-    {
+  
     lcd.print("Inserisci valore");
     lcd.setCursor(2,1);
     lcd.print("tra 30 e 99");
     delay(3000);
     lcd.clear();
-    lcd.print(MetaIn);}
+    lcd.print(MetaIn);
     delay(3000);
     lcd.clear();
-    Serial.println("rumori strani1");
-    while(buttonPin1 == HIGH&&buttonPin2 == HIGH&&buttonPin3 == HIGH){Serial.println("rumori strani");}
-    if(buttonPin1 == LOW){MetaIn++;lcd.print(MetaIn);}
-    if(buttonPin3 == LOW){MetaIn--;lcd.print(MetaIn);}
-    if(buttonPin2 == LOW){ContolloMeta();
-    MetaIn=Meta;
-    Stato=2;
+    while (24 != LOW)
+     {
+      lcd.print(MetaIn);  
+      delay(100);
+      if(22 == LOW){MetaIn++;}
+      if(26 == LOW){MetaIn--;}
+      lcd.clear();
+      Serial.print(digitalRead(22));
+     }
+  lcd.print("fuori"); 
+   if(24 == LOW)
+    {
+      ContolloMeta();
     }
-}
-    
+
+  }
+
 void ContolloMeta(){    
   if(MetaIn < 30){lcd.print("Valore troppo basso");MetaIn = 30;}
-  else{if(MetaIn>99){lcd.print("Valore troppo alto");MetaIn = 99;}}} 
-
+  else{if(MetaIn>99){lcd.print("Valore troppo alto");MetaIn = 99;}}
+  if(MetaIn >30 && MetaIn <99){Stato = 2;}} 
 
 
 
@@ -68,7 +75,7 @@ void Giocata0(){
       }
     }
     
-     void Giocata17(){
+void Giocata17(){
     for (int i = 0; i <= 6 ; i++) {
       if (Giocata == Caso17 [i]) {
        lcd.print(Giocata);
@@ -120,7 +127,6 @@ void Giocata3(){
 
 
 void ValoreSelezionabile(){ 
-  
   if (Meta == PunteggioTOT || Meta < PunteggioTOT) {
   Stato = 3;}
   else {
@@ -159,7 +165,7 @@ void FinePartita()
 
 
 void loop() {
-    if (Stato == 1){MetaSelezionabile();}
+    if(Stato == 1){MetaSelezionabile();}
     if(Stato == 2){Gioco();}
     if(Stato == 3){FinePartita();}
   }
