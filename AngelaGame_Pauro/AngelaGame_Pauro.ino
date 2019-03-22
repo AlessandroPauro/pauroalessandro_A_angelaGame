@@ -58,10 +58,11 @@ void ControlloMeta(){
     lcd.print("basso");delay(3000);lcd.clear();}
   else if(MetaIn>99){lcd.print("Valore troppo "); lcd.setCursor(2,1);
     lcd.print("alto");delay(3000);lcd.clear();}
-  if(MetaIn >= 30 && MetaIn <= 99){lcd.print("FATTO");delay(2000);lcd.clear();Stato=2; MetaIn=Meta;}} 
+  if(MetaIn >= 30 && MetaIn <= 99){lcd.print("FATTO");delay(2000);lcd.clear();Stato=2; MetaIn=Meta;MetaIn=NULL;}} 
 
 
 void Giocata0(){
+  MetaIn=0;
   Giocata = MetaIn;
   SelezionaConBottone();
   MetaIn = Giocata;
@@ -155,20 +156,6 @@ void ValoreSelezionabile(){
 
   
   
-
-void FinePartita()
-{
-  if (PunteggioTOT == Meta) {
-    if(Giocatore % 2 == 0){
-    lcd.print("Ha vinto il giocatore Giocatore1");} else {lcd.print("Ha vinto il giocatore2");}
-  }
-  if (PunteggioTOT > Meta) {
-    if(Giocatore % 2 == 0){
-    lcd.print("Ha perso il giocatore Giocatore1");} else {lcd.print("Ha perso il giocatore2");}
-  }
-  Stato = 1;
-}
-
 void Gioco() {
   lcd.clear();
   lcd.print("GIOCA");delay(1000);lcd.clear();
@@ -176,10 +163,9 @@ void Gioco() {
   {
   lcd.print("Seleziona un ");lcd.setCursor(2,1);
   lcd.print("tra 0 e 6");delay(2000);lcd.clear();
-  } 
   Giocata0();
-  
   Giocatore = 1;
+  }
   lcd.clear();
   lcd.print("GIOCA 2");delay(1000);lcd.clear();
 if (Giocatore > 0){lcd.print("Seleziona un numero ");lcd.setCursor(2,1);
@@ -187,6 +173,29 @@ if (Giocatore > 0){lcd.print("Seleziona un numero ");lcd.setCursor(2,1);
   lcd.print(Giocata);delay(2000);lcd.clear();
   ValoreSelezionabile();Giocatore++;}
 
+  
+void FinePartita()
+{
+  if (PunteggioTOT == Meta) {
+    if(Giocatore % 2 == 0){
+    lcd.print("Ha vinto ");lcd.setCursor(2,1);
+    lcd.print("Giocatore 1");delay(2000);lcd.clear();} 
+    else {lcd.print("Ha vinto ");lcd.setCursor(2,1);
+    lcd.print("Giocatore 2");delay(2000);lcd.clear();}
+    lcd.print("Fine della");lcd.setCursor(3,1);
+    lcd.print("partita");delay(2000);lcd.clear();}
+else{
+  if (PunteggioTOT > Meta) {
+    if(Giocatore % 2 == 0){
+    lcd.print("Ha perso ");lcd.setCursor(2,1);
+    lcd.print("Giocatore 1");delay(2000);lcd.clear();}} 
+    else {lcd.print("Ha perso ");lcd.setCursor(2,1);
+    lcd.print("Giocatore 2");delay(2000);lcd.clear();}
+    lcd.print("Fine della");lcd.setCursor(3,1);
+    lcd.print("partita");delay(2000);lcd.clear();}
+  
+  Stato = 1;
+}
 
 
 void loop() {
