@@ -43,14 +43,16 @@ void MetaSelezionabile()
     ControlloMeta();
   }
 
-void SelezionaConBottone(){    while (digitalRead(buttonPin2) != LOW)
+void SelezionaConBottone(){while (digitalRead(buttonPin2)!= LOW)
      {
       lcd.print(MetaIn); 
       delay(100); 
       if(digitalRead(buttonPin1) == LOW){MetaIn++;}
       if(digitalRead(buttonPin3) == LOW){MetaIn--;}
       lcd.clear();
-     }}
+     }
+     return MetaIn;
+     }
 
 
 void ControlloMeta(){    
@@ -62,10 +64,9 @@ void ControlloMeta(){
 
 
 void Giocata0(){
-  MetaIn=0;
-  Giocata = MetaIn;
+  MetaIn = 0;
   SelezionaConBottone();
-  MetaIn = Giocata;
+  Giocata = MetaIn; 
   lcd.print(Giocata);delay(3000);
     for (int i = 0; i < 7 ; i++) {
       if (Giocata == Caso00 [i]) {lcd.print(Giocata);lcd.clear();
@@ -73,13 +74,14 @@ void Giocata0(){
          backup = Giocata;
         lcd.print("Punteggio: "); lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(2000);lcd.clear();
       }
+      else {lcd.print("Errore");}
       }
     }
     
 void Giocata17(){
-  Giocata = MetaIn;
+  MetaIn = 0;
   SelezionaConBottone();
-  MetaIn = Giocata;
+  Giocata = MetaIn; 
   lcd.print(Giocata);delay(3000);
     for (int i = 0; i <= 6 ; i++) {
       if (Giocata == Caso17 [i]) {
@@ -92,9 +94,9 @@ void Giocata17(){
   }
 
 void Giocata1(){
-  Giocata = MetaIn;
+  MetaIn = 0;
   SelezionaConBottone();
-  MetaIn = Giocata;
+  Giocata = MetaIn; 
   lcd.print(Giocata);delay(3000);
     for (int i = 0; i <= 4 ; i++) {
       if (Giocata != Caso16 [i]) {
@@ -109,9 +111,9 @@ void Giocata1(){
   }
 
 void Giocata2(){
-  Giocata = MetaIn;
+  MetaIn = 0;
   SelezionaConBottone();
-  MetaIn = Giocata;
+  Giocata = MetaIn; 
     for (int i = 0; i < 4 ; i++) {
       if (Giocata != Caso25 [i]) {
         lcd.print("Giocata non valida");delay(2000);lcd.clear();
@@ -124,9 +126,9 @@ void Giocata2(){
     }
   }
 void Giocata3(){  
-  Giocata = MetaIn;
+  MetaIn = 0;
   SelezionaConBottone();
-  MetaIn = Giocata;
+  Giocata = MetaIn; 
     for (int i = 0; i < 4 ; i++) {
       if (Giocata != Caso34 [i]) {
         lcd.print("Giocata non valida");delay(2000);lcd.clear();
@@ -142,10 +144,8 @@ void Giocata3(){
 
 
 void ValoreSelezionabile(){ 
-  if (Meta == PunteggioTOT || PunteggioTOT > Meta) {
-  Stato = 3;}
-  else {
-       if (Giocata == 0){Giocata0();}
+  if (Meta == PunteggioTOT || PunteggioTOT > Meta) {Stato = 3;}
+  else {if (Giocata == 0){Giocata0();}
   else if (Giocatore == 1 && backup == 0){Giocata17();}
   else if (Giocata != backup && backup != 1 && backup != 6){Giocata1();}
   else if (Giocata != backup && backup != 2 && backup != 5){Giocata2();}
@@ -168,12 +168,15 @@ void Gioco() {
   }
   lcd.clear();
   lcd.print("GIOCA 2");delay(1000);lcd.clear();
-if (Giocatore > 0){lcd.print("Seleziona un numero ");lcd.setCursor(2,1);
-    lcd.print("tra 1 e 6");delay(2000);lcd.clear();}
+  if (Giocatore > 0)
+  {
+  lcd.print("Seleziona un numero ");lcd.setCursor(2,1);
+  lcd.print("tra 1 e 6");delay(2000);lcd.clear();
+  }
   lcd.print(Giocata);delay(2000);lcd.clear();
   ValoreSelezionabile();Giocatore++;}
 
-  
+//Conclusione Partita  
 void FinePartita()
 {
   if (PunteggioTOT == Meta) {
