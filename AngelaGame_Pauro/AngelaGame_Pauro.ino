@@ -11,9 +11,7 @@ int MetaIn = 30;
 int Giocata;
 int Caso00 [7] = {0, 1, 2, 3, 4, 5, 6};
 int Caso17 [6] = {1, 2, 3, 4, 5, 6};
-int Caso16 [4] = {2, 3, 4, 5};
-int Caso25 [4] = {1, 3, 4, 6};
-int Caso34 [4] = {1, 2, 5, 6};
+int Partita = 1;
 
 const int buttonPin1 = 22;
 const int buttonPin2 = 24;
@@ -25,6 +23,8 @@ void setup() {
    pinMode(buttonPin1, INPUT_PULLUP);
    pinMode(buttonPin2, INPUT_PULLUP);
    pinMode(buttonPin3, INPUT_PULLUP);
+   lcd.setCursor(2,0);lcd.print("Benvenuto in");lcd.setCursor(2,1);
+   lcd.print("Angela Game");delay(3000);lcd.clear();
 }
 
 
@@ -34,10 +34,10 @@ void MetaSelezionabile()
     lcd.print("Inserisci valore");
     lcd.setCursor(2,1);
     lcd.print("tra 30 e 99");
-    delay(3000);
+    delay(2000);
     lcd.clear();
     lcd.print(MetaIn);
-    delay(3000);
+    delay(2000);
     lcd.clear();
     SelezionaConBottone();
     ControlloMeta();
@@ -64,82 +64,77 @@ void ControlloMeta(){
 
 
 void Giocata0(){
-  lcd.print(Giocata);delay(3000);lcd.clear();
+  lcd.print(Giocata);delay(1500);lcd.clear();
     for (int i = 0; i <= 7 ; i++) {
       if (Giocata == Caso00 [i]) 
       {
       lcd.print(Giocata);lcd.clear();
       PunteggioTOT = PunteggioTOT + Giocata; backup = Giocata;     
-      lcd.print("Punteggio: "); lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(2000);lcd.clear();Giocatore++;Gioco();}    
+      lcd.print("Punteggio: "); lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(1000);lcd.clear();Giocatore++;Gioco();}    
       }
     }
     
 void Giocata17(){
-  lcd.print(Giocata);delay(3000);lcd.clear();
-    for (int i = 0; i <= 6 ; i++) {
-      if (Giocata != Caso17 [i]) 
+  lcd.print(Giocata);delay(1500);lcd.clear();
+      if (Giocata > 0 && Giocata < 7)
       {
-        lcd.print("Errore di"); lcd.setCursor(2,1);lcd.print("selezione");delay(1000);lcd.clear();Gioco();
-      }
-       else
-       { 
        lcd.print(Giocata);lcd.clear();backup = Giocata;PunteggioTOT = PunteggioTOT + Giocata; 
        lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(2000);lcd.clear();
        Giocatore++;Gioco(); 
+      }
+       else
+       { 
+       lcd.print("Errore di"); lcd.setCursor(2,1);lcd.print("selezione");delay(1000);lcd.clear();Gioco();
        }
     }
-  }
+  
 
 void Giocata1(){
-  lcd.print(Giocata);delay(3000);lcd.clear();
-    for (int i = 0; i <= 4 ; i++) {
-      if (Giocata != Caso16 [i]) 
+ if (Giocata == 1 || Giocata == 6) 
       {
         lcd.print("Errore di"); lcd.setCursor(2,1);lcd.print("selezione");delay(1000);lcd.clear();Gioco();
        }
-       else {
+ else {
        lcd.print(Giocata);lcd.clear();backup = Giocata;PunteggioTOT = PunteggioTOT + Giocata; 
-       lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(2000);lcd.clear();Giocatore++;Gioco();}
-      } 
+       lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(1000);lcd.clear();Giocatore++;Gioco();}
+     
    }
   
   
 
 void Giocata2(){
-    for (int i = 0; i <= 4 ; i++) {
-      if (Giocata != Caso25 [i]) {
+ if (Giocata == 2 || Giocata == 5) {
         lcd.print("Errore di"); lcd.setCursor(2,1);lcd.print("selezione");delay(1000);lcd.clear();Gioco();
-}
-       else {
-              lcd.print(Giocata);lcd.clear();backup = Giocata;PunteggioTOT = PunteggioTOT + Giocata; 
-       lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(2000);lcd.clear();Giocatore++;Gioco();}
+ }
+ else {
+       lcd.print(Giocata);lcd.clear();backup = Giocata;PunteggioTOT = PunteggioTOT + Giocata; 
+       lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(1000);lcd.clear();Giocatore++;Gioco();}
       }
-    }
+    
   
 void Giocata3(){  
-    for (int i = 0; i <= 4 ; i++) {
-      if (Giocata != Caso34 [i]) {
+ if (Giocata == 3 || Giocata == 4){
         lcd.print("Errore di"); lcd.setCursor(2,1);lcd.print("selezione");delay(1000);lcd.clear();Gioco();
       }
        else {
         lcd.print(Giocata);lcd.clear();backup = Giocata;PunteggioTOT = PunteggioTOT + Giocata; 
-        lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(2000);lcd.clear();Giocatore++;Gioco();}
+        lcd.print("Punteggio: ");lcd.setCursor(2,1);lcd.print(PunteggioTOT);delay(1000);lcd.clear();Giocatore++;Gioco();}
     }
-  }
+  
 
 
 
 void ValoreSelezionabile(){ 
-  if (Meta == PunteggioTOT || PunteggioTOT > Meta) {Stato = 3;}else{
   MetaIn = 0;
   SelezionaConBottone();
   Giocata = MetaIn; 
   if (Giocatore == 1 && backup == 0){Giocata17();}
-  else if (Giocata != backup && backup != 1 && backup != 6){Giocata1();}
-  else if (Giocata != backup && backup != 2 && backup != 5){Giocata2();}
-  else if (Giocata != backup && backup != 3 && backup != 4){Giocata3();}
+  else if(Giocata == backup||Giocata==0||Giocata<0||Giocata>6){lcd.print("valore errato");delay(2000);lcd.clear();Gioco();}
+  else if (backup == 1 || backup == 6){Giocata1();}
+  else if (backup == 2 || backup == 5){Giocata2();}
+  else if (backup == 3 || backup == 4){Giocata3();}
   }
-  }
+  
   
 
   
@@ -160,11 +155,17 @@ void Gioco() {
   else
   {
   lcd.clear();  
-  if(Giocatore % 2 == 0){lcd.print("GIOCA G1");delay(1000);lcd.clear();}
-  else{lcd.print("GIOCA G2");delay(1000);lcd.clear();}
+  if (PunteggioTOT==Meta||PunteggioTOT > Meta) {FinePartita();}
+  if(Giocatore % 2 == 0 && Stato==2){lcd.print("GIOCA G1");delay(1000);lcd.clear();
   lcd.print("Seleziona valore ");lcd.setCursor(2,1);
   lcd.print("tra 1 e 6");delay(2000);lcd.clear();
   ValoreSelezionabile();
+  }
+  else if(Giocatore % 2 == 1 && Stato==2){lcd.print("GIOCA G2");delay(1000);lcd.clear();
+  lcd.print("Seleziona valore ");lcd.setCursor(2,1);
+  lcd.print("tra 1 e 6");delay(2000);lcd.clear();
+  ValoreSelezionabile();
+  }
   }
 }
 //Conclusione Partita  
@@ -173,22 +174,23 @@ void FinePartita()
   if (PunteggioTOT == Meta) {
     if(Giocatore % 2 == 0){
     lcd.print("Ha vinto ");lcd.setCursor(2,1);
-    lcd.print("Giocatore 1");delay(2000);lcd.clear();} 
+    lcd.print("Giocatore 2");delay(2000);lcd.clear();} 
     else {lcd.print("Ha vinto ");lcd.setCursor(2,1);
-    lcd.print("Giocatore 2");delay(2000);lcd.clear();}
+    lcd.print("Giocatore 1");delay(2000);lcd.clear();}
     lcd.print("Fine della");lcd.setCursor(3,1);
     lcd.print("partita");delay(2000);lcd.clear();}
 else{
   if (PunteggioTOT > Meta) {
     if(Giocatore % 2 == 0){
     lcd.print("Ha perso ");lcd.setCursor(2,1);
-    lcd.print("Giocatore 1");delay(2000);lcd.clear();}} 
+    lcd.print("Giocatore 2");delay(2000);lcd.clear();}} 
     else {lcd.print("Ha perso ");lcd.setCursor(2,1);
-    lcd.print("Giocatore 2");delay(2000);lcd.clear();}
+    lcd.print("Giocatore 1");delay(2000);lcd.clear();}
     lcd.print("Fine della");lcd.setCursor(3,1);
     lcd.print("partita");delay(2000);lcd.clear();}
-  
-  Stato = 1;
+   Partita++; 
+   lcd.print("Partita N " + String(Partita));delay(2000);lcd.clear();
+   Stato = 1;
 }
 
 
