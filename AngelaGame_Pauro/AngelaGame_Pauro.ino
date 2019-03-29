@@ -36,16 +36,14 @@ void MetaSelezionabile()
     lcd.print("tra 30 e 99");
     delay(2000);
     lcd.clear();
-    lcd.print(MetaIn);
-    delay(2000);
-    lcd.clear();
     SelezionaConBottone();
     ControlloMeta();
   }
 
 void SelezionaConBottone(){while (digitalRead(buttonPin2)!= LOW)
      {
-      lcd.print(MetaIn); 
+      lcd.print("Seleziona valore");
+      lcd.setCursor(1,2);lcd.print("<-");lcd.setCursor(13,2);lcd.print("+>");lcd.setCursor(7,2);lcd.print(MetaIn); 
       delay(100); 
       if(digitalRead(buttonPin1) == LOW){MetaIn++;}
       if(digitalRead(buttonPin3) == LOW){MetaIn--;}
@@ -60,7 +58,7 @@ void ControlloMeta(){
     lcd.print("basso");delay(3000);lcd.clear();}
   else if(MetaIn>99){lcd.print("Valore troppo "); lcd.setCursor(2,1);
     lcd.print("alto");delay(3000);lcd.clear();}
-  if(MetaIn >= 30 && MetaIn <= 99){lcd.print("FATTO");delay(2000);lcd.clear();Stato=2; Meta = MetaIn;MetaIn=NULL;}} 
+  if(MetaIn >= 30 && MetaIn <= 99){lcd.print("   Confermato");delay(2000);lcd.clear();Stato=2; Meta = MetaIn;MetaIn=NULL;}} 
 
 
 void Giocata0(){
@@ -143,7 +141,7 @@ void Gioco() {
   lcd.clear();
   if(Giocatore == 0 && PunteggioTOT == 0)
   {
-  lcd.print("GIOCA");delay(1000);lcd.clear();
+  lcd.print("     GIOCA");delay(1000);lcd.clear();
   lcd.print("Seleziona valore ");lcd.setCursor(2,1);
   lcd.print("tra 0 e 6");delay(2000);lcd.clear();
   MetaIn = 0;
@@ -156,12 +154,12 @@ void Gioco() {
   {
   lcd.clear();  
   if (PunteggioTOT==Meta||PunteggioTOT > Meta) {FinePartita();}
-  if(Giocatore % 2 == 0 && Stato==2){lcd.print("GIOCA G1");delay(1000);lcd.clear();
+  if(Giocatore % 2 == 0 && Stato==2){lcd.print("    GIOCA G1");delay(1000);lcd.clear();
   lcd.print("Seleziona valore ");lcd.setCursor(2,1);
   lcd.print("tra 1 e 6");delay(2000);lcd.clear();
   ValoreSelezionabile();
   }
-  else if(Giocatore % 2 == 1 && Stato==2){lcd.print("GIOCA G2");delay(1000);lcd.clear();
+  else if(Giocatore % 2 == 1 && Stato==2){lcd.print("    GIOCA G2");delay(1000);lcd.clear();
   lcd.print("Seleziona valore ");lcd.setCursor(2,1);
   lcd.print("tra 1 e 6");delay(2000);lcd.clear();
   ValoreSelezionabile();
@@ -188,9 +186,9 @@ else{
     lcd.print("Giocatore 1");delay(2000);lcd.clear();}
     lcd.print("Fine della");lcd.setCursor(3,1);
     lcd.print("partita");delay(2000);lcd.clear();}
-   Partita++; 
-   lcd.print("Partita N " + String(Partita));delay(2000);lcd.clear();
-   Stato = 1;
+    Partita++; 
+    lcd.print("Partita N " + String(Partita));delay(2000);lcd.clear();
+    MetaSelezionabile();  
 }
 
 
